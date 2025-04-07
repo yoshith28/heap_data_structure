@@ -1,0 +1,141 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class heap{
+    public:
+    int arr[100];
+    int size;
+    heap()
+    {
+        size = 0;
+        arr[size] = -1;
+    }
+    
+    void insert(int n)
+    {
+        size++;
+        int idx = size;
+        arr[idx] = n;
+        while(idx > 1 && arr[idx] > arr[idx/2])
+        {
+            swap(arr[idx] , arr[idx/2]);
+        }
+    }
+    void print()
+    {
+        for(int i =1;i<=size;i++)
+        {
+            cout<<arr[i]<<" ";
+        }
+    }
+    
+    void deletenode()
+    {
+        if(size == 0)
+        {
+            cout<<"empty";
+            return;
+        }
+        arr[1] = arr[size];
+        size--;
+        int idx = 1;
+        while(idx < size)
+        {
+            int li = 2*idx;
+            int ri = 2*idx +1;
+            if(li < size && arr[li] > arr[idx])
+            {
+                swap(arr[li] , arr[idx]);
+                idx = li;
+            }
+            else if(ri < size && arr[ri] > arr[idx])
+            {
+                swap(arr[ri], arr[idx]);
+                idx = ri;
+            }
+            else
+            return;
+        }
+    }
+};
+
+void heapify(int array[], int n , int i)
+{
+    int largest = i;
+    int li = 2*i;
+    int ri = 2*i + 1;
+    
+    if(li < n && array[largest] < array[li])
+    {
+        largest = li;
+    }
+    if(ri < n && array[largest] < array[ri])
+    {
+        largest = ri;
+    }
+    
+    if(largest != i)
+    {
+        swap(array[i], array[largest]);
+        heapify(array,n,largest);
+    }
+}
+
+void heapsort(int array[], int n)
+{
+    
+    int size = n;
+    while(size > 1)
+    {
+        swap(array[1],array[size]);
+        size--;
+        heapify(array,size,1);
+    }
+}
+
+int main()
+{
+    heap h;
+    h.insert(4);
+    h.insert(8);
+    h.insert(1);
+    h.insert(2);
+    h.insert(6);
+    h.insert(0);
+    h.insert(3);
+    h.print();
+    
+    h.deletenode();
+
+    h.deletenode();
+    cout<<"\n";
+    h.deletenode();
+    h.print();
+    cout<<"\nbefore heapify\n";
+    
+    int array[6] = {-1,4,3,5,7,2};
+    for(int i =1;i<6;i++)
+    {
+        cout<<array[i]<<" ";
+    }
+    cout<<"\n";
+    int n = 5;
+    for(int i=n/2;i>0;i--)
+    {
+        heapify(array,6,i);
+    }
+    cout<<"after heapify\n";
+    for(int i =1;i<6;i++)
+    {
+        cout<<array[i]<<" ";
+    }
+    
+    heapsort(array,n);
+    cout<<"\nafter heap sort\n";
+    for(int i =1;i<6;i++)
+    {
+        cout<<array[i]<<" ";
+    }
+
+    return 0;
+}
