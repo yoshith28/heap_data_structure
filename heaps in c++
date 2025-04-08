@@ -1,3 +1,11 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, OCaml, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -65,11 +73,11 @@ void heapify(int array[], int n , int i)
     int li = 2*i;
     int ri = 2*i + 1;
     
-    if(li < n && array[largest] < array[li])
+    if(li <= n && array[largest] < array[li])
     {
         largest = li;
     }
-    if(ri < n && array[largest] < array[ri])
+    if(ri <= n && array[largest] < array[ri])
     {
         largest = ri;
     }
@@ -83,7 +91,10 @@ void heapify(int array[], int n , int i)
 
 void heapsort(int array[], int n)
 {
-    
+    for(int i = n/2 ; i >= 1;i--)
+    {
+        heapify(array,n,i);
+    }
     int size = n;
     while(size > 1)
     {
